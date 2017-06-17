@@ -37,7 +37,7 @@ img {
 .container {
   max-width: 1000px;
   margin: 0 auto;
-  padding: 0 1rem;
+  padding: 0 2rem;
 }
 
 header {
@@ -52,15 +52,24 @@ header {
   height: 90px;
 }
 
+.main-container {
+  display: flex;
+  justify-content: space-around;
+  flex-wrap: wrap;
+  margin-top: 2rem;
+}
+
 .category {
   display: flex;
   justify-content: space-between;
   align-items: center;
-  width: 300px;
+  width: 260px;
   background-color: #e55812;
   color: #efe7da;
   border-radius: 5px;
-  padding: 0.5rem;
+  margin-right: 0.75rem;
+  margin-bottom: 2rem;
+  padding: 0.75rem;
 }
 
 /* Page Elements */
@@ -69,16 +78,12 @@ header {
   width: 32px;
 }
 
+.category .answered {
+  visibility: hidden
+}
+
 .category .not-answered {
   width: 36px;
-}
-
-.category:last-child img:first-child {
-  margin-left: 3px;
-}
-
-.category:last-child h2 {
-  margin-left: -3px;
 }
 
 /* Media Queries
