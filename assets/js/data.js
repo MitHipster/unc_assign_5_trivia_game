@@ -113,7 +113,7 @@ let questions = {
       q: "Pete Townshend, Roger Daltrey, Keith Moon and John Entwistle?",
       choices: ["The Guess Who", "The Who", "The Band", "Cream"],
       a: 1,
-      fact: "The Who that formed in 1964 and have sold over 100 million records worldwide."
+      fact: "The Who formed in 1964 and have sold over 100 million records worldwide."
     },
     {
       q: "Which of these Beatles' albums was the first to be released?",
