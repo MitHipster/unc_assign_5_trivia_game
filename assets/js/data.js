@@ -104,7 +104,7 @@ let questions = {
       fact: "Belushi once accidentally slashed host Buck Henry's forehead with his sword."
     },
     {
-      q: "Which actor co-starred with Eva Gabor in the 1960s TV sitcom 'Green Acres'?",
+      q: "Which actor co-starred with Eva Gabor in the 1960's TV sitcom 'Green Acres'?",
       choices: ["Frank Cady", "William Wyler", "Gregory Peck", "Eddie Albert"],
       a: 3,
       fact: "The popular series told the story of a couple who move from New York City to a country farm."
@@ -140,7 +140,7 @@ let questions = {
       fact: "Planet of the Apes was remade by Tim Burton and released in 2001."
     },
     {
-      q: "It's the terror of knowing what the world is about. Watching some good friends - screaming... is from which David Bowie song",
+      q: "It's the terror of knowing what the world is about. Watching some good friends screaming... is from which David Bowie song",
       choices: ["Hang On to Yourself", "Rock 'n' Roll Suicide", "Star", "Under Pressure"],
       a: 3,
       fact: "Under Pressure was recorded with the band Queen in 1981."
@@ -308,7 +308,7 @@ let questions = {
       fact: "Stollen is usually made with chopped candied fruit, nuts and spices."
     },
     {
-      q: "Popular in the 1950s and 1960s in Australia, a carpetbag steak is stuffed with what inside the meat?",
+      q: "Popular in the 1950's and 1960's in Australia, a carpetbag steak is stuffed with what inside the meat?",
       choices: ["Oysters", "Prawns", "Cod", "Salmon"],
       a: 0,
       fact: "The earliest known reference to carpetbag steak is in an 1891 US newspaper."
@@ -365,7 +365,7 @@ let questions = {
       q: "One of the best-known toys ever, which company released 'Etch a Sketch' in 1960?",
       choices: ["Art Asylum", "Hasbro", "Ohio Art Company", "Mattel"],
       a: 2,
-      fact: "Etch a Sketch was invented by Andr\xE9 Cassagnes sometime in the late 1950s."
+      fact: "Etch a Sketch was invented by Andr\xE9 Cassagnes sometime in the late 1950's."
     },
     {
       q: "How many witches are brewing a potion at the beginning of Shakespeare's Macbeth?",
@@ -442,7 +442,7 @@ let questions = {
       fact: "Dale Hawerchuk is the only player to reach 1,000 career NHL games before age 31."
     },
     {
-      q: "What is the value of the center bulls eye on a dartboard?",
+      q: "What is the value of the center bullseye on a dartboard?",
       choices: ["25", "50", "100", "75"],
       a: 1,
       fact: "The standard numbering on a dartboard was created by Brian Gamlin in 1896."

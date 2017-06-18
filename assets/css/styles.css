@@ -52,7 +52,7 @@ header {
   height: 90px;
 }
 
-.main-container {
+.category-container {
   display: flex;
   justify-content: space-around;
   flex-wrap: wrap;
@@ -84,6 +84,10 @@ header {
 
 .category .not-answered {
   width: 36px;
+}
+
+#question {
+  font-size: 1.25rem;
 }
 
 /* Media Queries
