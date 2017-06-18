@@ -13,7 +13,7 @@ let game = {
   qPerCategory: 12, // Number of questions in each category
   q: "",
   choices: [],
-  a: 0,
+  a: 99, // Set to value that cannot match when time runs out
   fact: "",
   correct: 0,
   incorrect: 0,

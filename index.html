@@ -14,7 +14,7 @@
     <header>
       <div class="header-container container">
         <h1>Trivia Quest</h1>
-        <img src="assets/img/trivia-icon.svg" alt="trivia lightbulb icon">
+        <img class="logo" src="assets/img/trivia-icon.svg" alt="trivia lightbulb icon">
       </div> <!-- End header-container -->
     </header>
     <main>
@@ -22,12 +22,12 @@
         <div class="correct">
           <p>Correct: <span id="correct">0</span></p>
           <p>Incorrect: <span id="incorrect">0</span></p>
-        </div>
+        </div> <!-- End correct -->
         <div class="score">
           <p>Score: <span id="score">0</span></p>
           <p>Time: <span id="time">0</span></p>
-        </div>
-      </div> 
+        </div> <!-- End score -->
+      </div> <!-- End stats-container -->
       <div class="category-container container">
         <div class="category">
           <h2>Geography</h2>
@@ -35,8 +35,8 @@
           <img class="not-answered" src="assets/img/not.svg" alt="Not answered icon">
         </div> <!-- End category -->
         <div class="category">
-          <h2>Enterainment</h2>
-          <img class="answered" src="assets/img/entertain.svg" alt="Enterainment icon">
+          <h2>Entertainment</h2>
+          <img class="answered" src="assets/img/entertain.svg" alt="Entertainment icon">
           <img class="not-answered" src="assets/img/not.svg" alt="Not answered icon">
         </div> <!-- End category -->
         <div class="category">
@@ -65,6 +65,11 @@
         <ol id="choices"></ol>
       </div> <!-- End question-container -->
     </main>
+    <footer>
+      <div class="footer-container container">
+        <p>&copy; 2017 Tim Acker</p>
+      </div> <!-- End footer-container -->
+    </footer>
 
   <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
   <script type="text/javascript" src="assets/js/data.js"></script>
