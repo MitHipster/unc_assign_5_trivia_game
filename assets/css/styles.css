@@ -10,7 +10,7 @@ body {
   font-family: 'Merriweather Sans', sans-serif;
   font-size: 1rem;
   line-height: 1.4;
-  background-color: #efe7da;
+  background-color: #f1ebe0;
   color: #002626;
 }
 
@@ -28,10 +28,6 @@ img {
 /* Base Layout Styles
    ------------------------- */
 
-/* Navigation  */
-
-
-
 /* Layout Containers */
 
 .container {
@@ -42,7 +38,7 @@ img {
 
 header {
   background-color: #002626;
-  color: #efe7da;
+  color: #f1ebe0;
 }
 
 .header-container {
@@ -50,6 +46,14 @@ header {
   justify-content: space-between;
   align-items: center;
   height: 90px;
+}
+
+.stats-container {
+  display: flex;
+  justify-content: space-between;
+  font-size: 1.25rem;
+  font-weight: 700;
+  margin: 2rem;
 }
 
 .category-container {
@@ -65,11 +69,16 @@ header {
   align-items: center;
   width: 260px;
   background-color: #e55812;
-  color: #efe7da;
+  color: #f1ebe0;
   border-radius: 5px;
-  margin-right: 0.75rem;
+/*  margin-right: 0.75rem;*/
   margin-bottom: 2rem;
   padding: 0.75rem;
+}
+
+.question-container {
+  font-size: 1.25rem;
+  margin: 2rem;
 }
 
 /* Page Elements */
@@ -86,8 +95,22 @@ header {
   width: 36px;
 }
 
-#question {
-  font-size: 1.25rem;
+#choices {
+  list-style-type: upper-alpha;
+  list-style-position: inside;
+  margin-top: 0.5rem;
+}
+
+#choices li {
+  padding: 1rem;
+  border-bottom: 1px dotted;
+  transition: background-color 0.3s ease-out, box-shadow 0.3s ease-out;
+}
+
+#choices li:hover {
+  cursor: pointer;
+  background-color: #DAD2C7;
+  box-shadow: 0 1px 4px #575450;
 }
 
 /* Media Queries
@@ -98,20 +121,3 @@ header {
   
 }
 
-
-/* Helper Classes
-   ------------------------- */
-
-.clearfix:before,
-.clearfix:after {
-  content: " ";
-  display: table;
-}
-
-.clearfix:after {
-  clear: both;
-}
-
-.clearfix {
-  *zoom: 1;
-}
