@@ -351,8 +351,8 @@ let questions = {
     },
     {
       q: "Aside from being the very last entry in many dictionaries, what is a zyzzyva?",
-      choices: ["A protein found in enzymes", "A process used to ferment beverages", "A tropical weevil", "A thick-walled spore"],
-      a: 2,
+      choices: ["Protein found in enzymes", "Tropical weevil", "Process to ferment beverages", "Thick-walled spore"],
+      a: 1,
       fact: "It was first discovered in 1922 in Brazil."
     },
     {
