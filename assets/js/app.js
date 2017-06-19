@@ -9,7 +9,6 @@ const $catContainer = $('.category-container');
 const $quesId = $('#question');
 const $choicesId = $('#choices');
 const $factId = $('#fact');
-const incorrectMessage = 'Sorry, that answer was incorrect.';
 // Needed to declare as var for window[status] to work in categoryDisplay function
 var answered = '#77ab00';
 var active = '#437f97';
@@ -17,6 +16,7 @@ var unanswered = '#d01217';
 
 let game = {
   categories: ["geography", "entertain", "history", "science", "leisure", "sports"],
+  qPerCategory: 12, // Number of questions in each category
   activeCat: "", // Hold name of active category
   q: "",
   choices: [],
@@ -26,7 +26,8 @@ let game = {
   correct: 0,
   incorrect: 0,
   score: 0,
-  qPerCategory: 12, // Number of questions in each category
+  timer: 30,
+  incorrectMessage: 'Sorry, that answer was incorrect.',
   fn: {
     // Function to select the next question in the game and add to question container
     selectQues: function () {
@@ -104,7 +105,7 @@ let game = {
           if (showFact) {
             $factId.text(game.fact);
           } else {
-            $factId.text(incorrectMessage);
+            $factId.text(game.incorrectMessage);
           }
         };
         // If answer is correct call the guessCorrect function else call the guessIncorrect function

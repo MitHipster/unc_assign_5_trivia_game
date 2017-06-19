@@ -130,8 +130,7 @@ footer {
 }
 
 #choices {
-  list-style-type: upper-alpha;
-  list-style-position: inside;
+  list-style: none;
   margin: 1.5rem 0;
 }
 
