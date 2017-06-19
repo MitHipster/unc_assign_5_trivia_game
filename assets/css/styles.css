@@ -13,8 +13,7 @@ body {
   font-family: 'Merriweather Sans', sans-serif;
   font-size: 1rem;
   line-height: 1.4;
-  background: url('../img/background.jpg') no-repeat center center;
-  background-size: cover;
+  background-color: #f5f2ee;
   color: #010c1a;
 }
 
@@ -35,7 +34,6 @@ h2 {
 
 main {
   flex-grow: 1;
-  background-color: rgba(245, 242, 238, 0.85);
 }
 
 /* Base Layout Styles
@@ -65,12 +63,12 @@ footer {
   margin-top: 0;
 }
 
-.stats-container {
+.stats {
   display: flex;
   justify-content: space-between;
-  font-size: 1.375rem;
+  font-size: 1.25rem;
   font-weight: 700;
-  padding: 0 2rem 0.75rem;
+  padding: 0 0 0.75rem;
   border-bottom: 2px solid #1f3a45;
 }
 
@@ -97,7 +95,7 @@ footer {
 
 .question-container {
   font-size: 1.2rem;
-  padding: 0 2rem;
+  padding: 0 1.5rem;
 }
 
 footer {
@@ -105,7 +103,7 @@ footer {
 }
 
 .footer-container {
-  justify-content: flex-end;
+  justify-content: center;
 }
 
 /* Page Elements */
@@ -168,8 +166,17 @@ footer {
 
 @media screen and (min-width: 660px) {
   
+  body {
+    background: url('../img/background.jpg') no-repeat center center;
+    background-size: cover;
+  }
+  
   h1 {
     font-size: 2rem;
+  }
+  
+  main {
+    background-color: rgba(245, 242, 238, 0.85);
   }
   
   .container {
@@ -178,7 +185,11 @@ footer {
   }
   
   .stats-container {
-    padding: 0 2rem 0.75rem;
+    padding: 0 0 0.75rem;
+  }
+  
+  .stats {
+    margin: 0 2rem;
   }
   
   .header-container,
