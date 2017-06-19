@@ -16,14 +16,15 @@ const unanswered = '#d01217';
 let game = {
   categories: ["geography", "entertain", "history", "science", "leisure", "sports"],
   activeCat: "", // Hold name of active category
-  qPerCategory: 12, // Number of questions in each category
   q: "",
   choices: [],
   a: 99, // Set to value that cannot match when time runs out
   fact: "",
+  guess: 99, // Store player's answer
   correct: 0,
   incorrect: 0,
   score: 0,
+  qPerCategory: 12, // Number of questions in each category
   fn: {
     // Function to select the next question in the game and add to question container
     selectQues: function () {
@@ -46,7 +47,7 @@ let game = {
     },
     // Function to create an ordered list of potential answers
     addChoices: function () {
-      $.each(game.choices, function(i, choice) {
+      $.each(game.choices, function (i, choice) {
         let li = $('<li>');
         li.attr('data-choice', i)
           .text(choice);
@@ -92,17 +93,20 @@ let game = {
     checkGuess: function () {
       $choicesId.on('click', function (e) {
         // If answer is correct call the guessCorrect function else call the guessIncorrect function
-        if ($(e.target).data('choice') === game.a) {
-          game.fn.guessCorrect();
+        game.guess = $(e.target).data('choice');
+        if (game.guess === game.a) {
+          game.fn.guessCorrect($(e.target));
         } else {
-          game.fn.guessIncorrect();
+          game.fn.guessIncorrect($(e.target));
         }
       });
     },
     // Function to update the correct count, score, and display a fact about the question
-    guessCorrect: function () {
+    guessCorrect: function (target) {
       // Call removeChoices function
       game.fn.removeChoices();
+      target.append(`<img class="guess" src="assets/img/correct.svg" alt="Correct answer icon">`);
+      // Update correct stat and display fact
       game.correct++;
       $correctId.text(game.correct);
       $factId.text(game.fact);
@@ -110,9 +114,11 @@ let game = {
       game.fn.categoryDisplay('answered');
     },
     // Function to update the incorrect count
-    guessIncorrect: function () {
+    guessIncorrect: function (target) {
       // Call removeChoices function
       game.fn.removeChoices();
+      target.append(`<img class="guess" src="assets/img/incorrect.svg" alt="Incorrect answer icon">`);
+      // Update incorrect stat
       game.incorrect++;
       $incorrectId.text(game.incorrect);
       // Call categoryDisplay function to change category back to unanswered
@@ -121,6 +127,14 @@ let game = {
     // Functions to remove click event and hide unselected choices
     removeChoices: function () {
       $choicesId.off();
+      let $choicesLi = $('#choices li');
+      $.each($choicesLi, function (i, choice) {
+        if (i !== game.guess) {
+          $(choice).fadeTo(500, 0, function () {
+            $(choice).css("visibility", "hidden");   
+          });
+        }
+      });
     }
   }
 };

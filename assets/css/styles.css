@@ -83,6 +83,7 @@ footer {
   justify-content: space-between;
   align-items: center;
   width: 260px;
+  height: 56px;
   background-color: #d01217;
   color: #f5f2ee;
   border-radius: 5px;
@@ -134,11 +135,15 @@ footer {
 }
 
 #choices li {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
   width: 260px;
-  font-size: 1.125rem;
+  height: 56px;
+  font-size: 1rem;
   background-color: #87adbc;
   margin: 0 auto 1rem;
-  padding: 1rem;
+  padding: 0.75rem;
   border-radius: 5px;
   box-shadow: 0 8px 6px -6px #010c1a;
   transition: background-color 0.3s ease-out;
