@@ -1,7 +1,7 @@
 /*jslint esversion: 6, browser: true*/
 /*global window, console, $, jQuery, questions, alert*/
 
-const $correctId = $('#correct');
+const ScorrectId = $('#correct');
 const $incorrectId = $('#incorrect');
 const $scoreId = $('#score');
 const $timeId = $('#time');
@@ -9,9 +9,11 @@ const $catContainer = $('.category-container');
 const $quesId = $('#question');
 const $choicesId = $('#choices');
 const $factId = $('#fact');
-const answered = '#77ab00';
-const active = '#437f97'; // Old color #e8a921
-const unanswered = '#d01217';
+const incorrectMessage = 'Sorry, that answer was incorrect.';
+// Needed to declare as var for window[status] to work in categoryDisplay function
+var answered = '#77ab00';
+var active = '#437f97';
+var unanswered = '#d01217';
 
 let game = {
   categories: ["geography", "entertain", "history", "science", "leisure", "sports"],
@@ -56,35 +58,29 @@ let game = {
     },
     // Function to change the appearance of the category block based on game play
     categoryDisplay: function (status) {
+      // Locate current question's category in the DOM
+      let currentCat = $catContainer.find(`[data-cat="${game.activeCat}"]`);
+      // Locate current question's not answered img
+      let notAnswered = currentCat.find('.not-answered');
+      // Change background-color to either active, answered or unanswered
+      currentCat.css('background-color', window[status]);
       switch (status) {
-        // For active question change background color yellow and show question mark icon
+        // For active, show question mark icon
         case 'active':
-          $catContainer
-            .find(`[data-cat="${game.activeCat}"]`)
-            .css('background-color', active)
-            .find('.not-answered')
+          notAnswered
             .attr('src', 'assets/img/question.svg');
           break;
-        // For answerd question change background color green, hide not answered icon and fade in answered icon
+        // For answerd, hide not answered icon and fade in answered icon
         case 'answered':
-          $catContainer
-            .find(`[data-cat="${game.activeCat}"]`)
-            .css('background-color', answered)
-            .find('.not-answered')
+          notAnswered
             .css('display', 'none');
-          $catContainer
-            .find(`[data-cat="${game.activeCat}"]`)
+          currentCat
             .find('.answered')
-            .css('visibility', 'visible')
-            .hide()
-            .fadeIn(1000);
+            .fadeTo(500, 1);
           break;
-        // For unanswerd question change background color red and show not icon
+        // For unanswerd, show not icon
         default:
-          $catContainer
-            .find(`[data-cat="${game.activeCat}"]`)
-            .css('background-color', unanswered)
-            .find('.not-answered')
+          notAnswered
             .attr('src', 'assets/img/not.svg');
           break;
       }
@@ -92,37 +88,35 @@ let game = {
     // Function to add a click event on guess to check for the correct answer
     checkGuess: function () {
       $choicesId.on('click', function (e) {
+        // Function to update stats and display a fact about question. Handles both correct and incorrect answers
+        let guess = function (answer, display, showFact) {
+          // Call removeChoices function
+          game.fn.removeChoices();
+          // Display icon denoting whether answer was correct or incorrect
+          $(e.target).append(`<img class="guess" src="assets/img/${answer}.svg" alt="${answer} answer icon">`);
+          // Update correct or incorrect stat
+          game[answer]++;
+          // Update stat count
+          $(`#${answer}`).text(game[answer]);
+          // Call categoryDisplay function to change category color based on answer
+          game.fn.categoryDisplay(display);
+          // Display fact if answer was correct or message that guess was incorrect
+          if (showFact) {
+            $factId.text(game.fact);
+          } else {
+            $factId.text(incorrectMessage);
+          }
+        };
         // If answer is correct call the guessCorrect function else call the guessIncorrect function
         game.guess = $(e.target).data('choice');
         if (game.guess === game.a) {
-          game.fn.guessCorrect($(e.target));
+//          game.fn.guessCorrect($(e.target));
+          guess('correct', 'answered', true);
         } else {
-          game.fn.guessIncorrect($(e.target));
+//          game.fn.guessIncorrect($(e.target));
+          guess('incorrect', 'unanswered', false);
         }
       });
-    },
-    // Function to update the correct count, score, and display a fact about the question
-    guessCorrect: function (target) {
-      // Call removeChoices function
-      game.fn.removeChoices();
-      target.append(`<img class="guess" src="assets/img/correct.svg" alt="Correct answer icon">`);
-      // Update correct stat and display fact
-      game.correct++;
-      $correctId.text(game.correct);
-      $factId.text(game.fact);
-      // Call categoryDisplay function to change category to answered
-      game.fn.categoryDisplay('answered');
-    },
-    // Function to update the incorrect count
-    guessIncorrect: function (target) {
-      // Call removeChoices function
-      game.fn.removeChoices();
-      target.append(`<img class="guess" src="assets/img/incorrect.svg" alt="Incorrect answer icon">`);
-      // Update incorrect stat
-      game.incorrect++;
-      $incorrectId.text(game.incorrect);
-      // Call categoryDisplay function to change category back to unanswered
-      game.fn.categoryDisplay('unanswered');
     },
     // Functions to remove click event and hide unselected choices
     removeChoices: function () {
