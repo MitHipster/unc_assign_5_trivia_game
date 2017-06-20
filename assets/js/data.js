@@ -125,7 +125,7 @@ let questions = {
       q: "Complete the title of this comedy movie from 2010 - 'Scott Pilgrim vs. ...'?",
       choices: ["The World", "The Universe", "Kick Ass", "Superman"],
       a: 0,
-      fact: "The film is based on the graphic novel series Scott Pilgrim by Bryan Lee O'Malley."
+      fact: "The film is based on the graphic novel series 'Scott Pilgrim' by Bryan Lee O'Malley."
     },
     {
       q: "Produced and directed by Angelina Jolie, which 2014 movie tells the story of Olympian Louis Hampering?",

@@ -9,6 +9,7 @@ const $catContainer = $('.category-container');
 const $quesId = $('#question');
 const $choicesId = $('#choices');
 const $factId = $('#fact');
+const $overlayId = $('#overlay');
 // Needed to declare as var for window[status] to work in categoryDisplay function
 var answered = '#77ab00';
 var active = '#437f97';
@@ -213,5 +214,10 @@ let randomNum = function (num) {
   return Math.floor(Math.random() * num);
 };
 
-
-game.fn.timer.start();
+$(document).ready( function () {
+  $overlayId.css('display', 'block');
+  $overlayId.on('click', function () {
+    $overlayId.css('display', 'none');
+    setTimeout(game.fn.timer.start, 1000);
+  });
+});

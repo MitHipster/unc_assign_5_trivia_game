@@ -5,7 +5,7 @@
     <title>Trivia Quest Game</title>
     <meta name="author" content="Tim Acker">
     <meta name="viewport" content="width=device-width, initial-scale=1">
-    <link href="https://fonts.googleapis.com/css?family=Merriweather+Sans:400,700,800" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css?family=Merriweather+Sans:300,400,700" rel="stylesheet">
     <link rel="stylesheet" type="text/css" href="assets/css/normalize.min.css">
     <link rel="stylesheet" type="text/css" href="assets/css/styles.css">
 
@@ -73,6 +73,22 @@
         <p>&copy; 2017 Tim Acker</p>
       </div> <!-- End footer-container -->
     </footer>
+    <div id="overlay">
+      <aside class="instructions">
+        <header class="header-container container">
+          <h2>Instructions</h2>
+          <img class="logo" src="assets/img/trivia-icon.svg" alt="trivia lightbulb icon">
+        </header> <!-- End header-container -->
+        <ul>
+          <li>Welcome to Trivia Quest! There are six categories and you must get 1 question right from each category to win, but if you answer 3 questions wrong in total, you lose.</li>
+          <li>Categories are selected randomly and once you answer a question you earn that category and move on to the remaining categories.</li>
+          <li>If you answer incorrectly, the category remains in play and can be randomly selected again.</li>
+          <li>You have 30 seconds to answer each question and correct answers are worth 10 points each.</li>
+          <li>If time runs out or you answer incorrectly, you lose 10 points.</li>
+          <li>As a bonus, you receive 1 point for each second that remains on the timer when you answer correctly. Click anywhere to begin.</li>
+        </ul>
+      </aside> <!-- End instructions -->
+    </div> <!-- End overlay -->
 
   <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
   <script type="text/javascript" src="assets/js/data.js"></script>
