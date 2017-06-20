@@ -198,8 +198,9 @@ let game = {
       },
       // Function to reset game container for next question
       reset: function () {
-        // Initialize starting timer
+        // Initialize starting timer and update on site
         game.timer = game.timerStart;
+        $timeId.text(game.timer);
         // Clear any existing choices from previous questions
         $choicesId.empty();
         // Clear fact or incorrect message
