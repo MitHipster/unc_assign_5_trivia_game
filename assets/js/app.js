@@ -29,13 +29,15 @@ let game = {
   guess: 99, // Store player's answer
   correct: 0,
   correctMax: 6,
+  correctPts: 10,
   incorrect: 0,
   incorrectMax: 3,
+  incorrectPts: -10,
   score: 0,
   timer: 30,
   timerStart: 30, // Start value of timer
   timerRunning: false,
-  message: ["", "Sorry, that answer was incorrect.", "Sorry, time's up!"],
+  message: ["", "Sorry, that's incorrect. The correct answer was: ", "Sorry, time's up! The correct answer was: "],
   fn: {
     // Function to select the next question in the game and add to question container
     selectQues: function () {
@@ -103,8 +105,10 @@ let game = {
           // Remove category from array when question is answered correctly
           let i = game.categories.indexOf(game.activeCat);
           game.categories.splice(i, 1);
+          // Call update function with correct answer arguments
           game.fn.update('correct', 'answered', 0, clicked);
         } else {
+          // Call update function with incorrect answer arguments
           game.fn.update('incorrect', 'unanswered', 1, clicked);
         }
       });
@@ -114,6 +118,8 @@ let game = {
       // Update correct or incorrect counter and stat on site
       game[answer]++;
       $(`#${answer}`).text(game[answer]);
+      // Call score function and pass it the answer argument
+      game.fn.score(answer);
       // Call removeChoices function
       game.fn.removeChoices();
       // Display icon denoting whether answer was correct or incorrect
@@ -123,7 +129,11 @@ let game = {
       // Call categoryDisplay function to change category color based on answer
       game.fn.categoryDisplay(display);
       // Display fact if answer was correct or message that guess was incorrect or left unanswered
-      $factId.text(game.message[message]);
+      if (message === 0) {
+        $factId.text(game.message[message]);
+      } else {
+        $factId.text(game.message[message] + game.choices[game.a]);
+      }
     },
     // Functions to remove click event, stop timer and hide unselected choices
     removeChoices: function () {
@@ -137,6 +147,14 @@ let game = {
           });
         }
       });
+    },
+    score: function (answer) {
+      if (answer === 'correct') {
+        game.score += (game.correctPts + game.timer);
+      } else {
+        game.score += game.incorrectPts;
+      }
+      $scoreId.text(game.score);
     },
     timer: {
       // Function to start timer and call required functions to set up game container
@@ -155,12 +173,10 @@ let game = {
       // Function to stop timer
       stop: function () {
         // Use clearInterval to stop the counter and set the timer to not running.
-        console.log(game.incorrect);
         clearInterval(timerId);
         game.timerRunning = false;
         // Call start timer to load new question after a set delay. Check if game is over first
         if (game.correct === game.correctMax || game.incorrect === game.incorrectMax) {
-          console.log(game.correct === game.correctMax || game.incorrect === game.incorrectMax);
           clearTimeout(delayId);
         } else {
           delayId = setTimeout(game.fn.timer.start, 5000);
