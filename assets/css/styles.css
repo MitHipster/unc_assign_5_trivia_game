@@ -120,10 +120,6 @@ footer {
   opacity: 0;
 }
 
-.category .not-answered {
-  width: 32px;
-}
-
 #question {
   padding-bottom: 0.75rem;
   border-bottom: 2px solid #1f3a45;

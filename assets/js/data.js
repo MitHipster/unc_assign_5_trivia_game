@@ -371,7 +371,7 @@ let questions = {
       q: "How many witches are brewing a potion at the beginning of Shakespeare's Macbeth?",
       choices: ["13", "3", "2", "5"],
       a: 1,
-      fact: "The three witches chant the legendary words 'Double, double toil and trouble. Fire burn, and caldron bubble.'"
+      fact: "The three witches chant the legendary words 'Double, double toil and trouble. Fire burn and caldron bubble.'"
     }
   ],
   sports: [
