@@ -16,8 +16,8 @@ var unanswered = '#d01217';
 
 //  Variable that holds setInterval that runs timer
 let timerId;
-//  Variable that hold setTimeout that calls start of next question
-let timeOutId;
+//  Variable that hold setTimeout that calls start for next question
+let delayId;
 
 let game = {
   categories: ["geography", "entertain", "history", "science", "leisure", "sports"],
@@ -26,15 +26,16 @@ let game = {
   q: "",
   choices: [],
   a: 99, // Set to value that cannot match when time runs out
-  fact: "",
   guess: 99, // Store player's answer
   correct: 0,
+  correctMax: 6,
   incorrect: 0,
+  incorrectMax: 3,
   score: 0,
   timer: 30,
   timerStart: 30, // Start value of timer
   timerRunning: false,
-  incorrectMessage: 'Sorry, that answer was incorrect.',
+  message: ["", "Sorry, that answer was incorrect.", "Sorry, time's up!"],
   fn: {
     // Function to select the next question in the game and add to question container
     selectQues: function () {
@@ -50,7 +51,7 @@ let game = {
       // Store all information pertaining to the current question
       game.choices =  questions[cat][qIndex].choices;
       game.a =  questions[cat][qIndex].a;
-      game.fact =  questions[cat][qIndex].fact;
+      game.message[0] =  questions[cat][qIndex].fact;
       // Display current question
       $quesId.text(game.q);
     },
@@ -95,35 +96,34 @@ let game = {
     // Function to add a click event on guess to check for the correct answer
     checkGuess: function () {
       $choicesId.on('click', function (e) {
-        // Function to update stats and display a fact about question or message that answer was incorrect
-        let guess = function (answer, display, showFact) {
-          // Call removeChoices function
-          game.fn.removeChoices();
-          // Display icon denoting whether answer was correct or incorrect
-          $(e.target).append(`<img class="guess" src="assets/img/${answer}.svg" alt="${answer} answer icon">`);
-          // Update correct or incorrect counter and stat on site
-          game[answer]++;
-          $(`#${answer}`).text(game[answer]);
-          // Call categoryDisplay function to change category color based on answer
-          game.fn.categoryDisplay(display);
-          // Display fact if answer was correct or message that guess was incorrect
-          if (showFact) {
-            $factId.text(game.fact);
-          } else {
-            $factId.text(game.incorrectMessage);
-          }
-        };
-        // If answer is correct call the guessCorrect function else call the guessIncorrect function
-        game.guess = $(e.target).data('choice');
+        let clicked = $(e.target);
+        // Call update function and pass correct or incorrect guess criteria
+        game.guess = clicked.data('choice');
         if (game.guess === game.a) {
           // Remove category from array when question is answered correctly
           let i = game.categories.indexOf(game.activeCat);
           game.categories.splice(i, 1);
-          guess('correct', 'answered', true);
+          game.fn.update('correct', 'answered', 0, clicked);
         } else {
-          guess('incorrect', 'unanswered', false);
+          game.fn.update('incorrect', 'unanswered', 1, clicked);
         }
       });
+    },
+    // Function to update stats and display a fact about question or message that answer was incorrect
+    update: function (answer, display, message, target) {
+      // Update correct or incorrect counter and stat on site
+      game[answer]++;
+      $(`#${answer}`).text(game[answer]);
+      // Call removeChoices function
+      game.fn.removeChoices();
+      // Display icon denoting whether answer was correct or incorrect
+      if (game.guess !== 99) {
+        target.append(`<img class="guess" src="assets/img/${answer}.svg" alt="${answer} answer icon">`);
+      }
+      // Call categoryDisplay function to change category color based on answer
+      game.fn.categoryDisplay(display);
+      // Display fact if answer was correct or message that guess was incorrect or left unanswered
+      $factId.text(game.message[message]);
     },
     // Functions to remove click event, stop timer and hide unselected choices
     removeChoices: function () {
@@ -139,12 +139,12 @@ let game = {
       });
     },
     timer: {
-      // Function to start timer and call required functions to setup game container
+      // Function to start timer and call required functions to set up game container
       start: function () {
         if (!game.timerRunning) {
           // Call reset function
           game.fn.timer.reset();
-          // SetInterval to start the counter and set the timer to running (true)
+          // Use setInterval to start the counter and set the timer to running
           timerId = setInterval(game.fn.timer.counter, 1000);
           game.timerRunning = true;
           game.fn.selectQues();
@@ -155,15 +155,24 @@ let game = {
       // Function to stop timer
       stop: function () {
         // Use clearInterval to stop the counter and set the timer to not running.
+        console.log(game.incorrect);
         clearInterval(timerId);
         game.timerRunning = false;
-        // Call start timer and load new question after after a set delay
-        timeOutId = setTimeout(game.fn.timer.start, 5000);
+        // Call start timer to load new question after a set delay. Check if game is over first
+        if (game.correct === game.correctMax || game.incorrect === game.incorrectMax) {
+          console.log(game.correct === game.correctMax || game.incorrect === game.incorrectMax);
+          clearTimeout(delayId);
+        } else {
+          delayId = setTimeout(game.fn.timer.start, 5000);
+        }
       },
       // Function to countdown the timer
       counter: function () {
         game.timer--;
         if (game.timer === 0) {
+          // Call update function with incorrect guess criteria
+          game.guess = 99;
+          game.fn.update('incorrect', 'unanswered', 2);
           // Call timer stop function
           game.fn.timer.stop();
         }

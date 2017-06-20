@@ -149,7 +149,7 @@ let questions = {
       q: "What make of car did Tom Selleck drive in the TV series 'Magnum P.I.'?",
       choices: ["Ferrari Daytona", "Porsche 356 Speedster", "Ferrari 308 GTS", "Porsche 911 Carrera"],
       a: 2,
-      fact: "Magnum, P.I. was one of the highest-rated TV shows on television during the 1980's."
+      fact: "Magnum, P.I. was one of the highest-rated shows on television during the 1980's."
     }
   ],
   history: [
