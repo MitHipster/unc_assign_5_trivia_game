@@ -80,7 +80,7 @@ let questions = {
   ],
   entertain: [
     {
-      q: "What 1963 animated musical comedy Disney film is based on a 1938 novel by T.H. White?",
+      q: "What 1963 animated musical comedy by Disney is based on a 1938 novel by T.H. White?",
       choices: ["The Incredible Journey", "Son of Flubber", "Miracle of the White Stallions", "The Sword in the Stone"],
       a: 3,
       fact: "The Sword in the Stone was the final Disney animated film to be released before Walt Disney's death."
@@ -379,7 +379,7 @@ let questions = {
       q: "Which color of ball would you not find on a snooker table?",
       choices: ["Orange", "Yellow", "Red", "Pink"],
       a: 0,
-      fact: "The World Snooker Championship first took place since 1927."
+      fact: "The World Snooker Championship first took place in 1927."
     },
     {
       q: "Help by the Montreal Canadiens, what is the record for most goals scored by one team in an NHL game?",
