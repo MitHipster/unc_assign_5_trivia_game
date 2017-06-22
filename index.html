@@ -73,8 +73,8 @@
         <p>&copy; 2017 Tim Acker</p>
       </div> <!-- End footer-container -->
     </footer>
-    <div id="overlay">
-      <aside class="instructions">
+    <div class="instructions-overlay overlay">
+      <aside class="instructions inner-container">
         <header class="header-container container">
           <h2>Instructions</h2>
           <img class="logo" src="assets/img/trivia-icon.svg" alt="trivia lightbulb icon">
@@ -88,7 +88,26 @@
           <li>As a bonus, you receive 1 point for each second that remains on the timer when you answer correctly. Click anywhere to begin.</li>
         </ul>
       </aside> <!-- End instructions -->
-    </div> <!-- End overlay -->
+    </div> <!-- End instructions-overlay -->
+    <div class="game-over-overlay overlay">
+      <aside class="game-over inner-container">
+        <header class="header-container container">
+          <h2>Game Over</h2>
+          <img class="logo" src="assets/img/trivia-icon.svg" alt="trivia lightbulb icon">
+        </header> <!-- End header-container -->
+        <ul>
+          <li id="outcome"></li>
+          <li>Final score: <span id="final-score"></span></li>
+          <li>Correct answers: <span id="final-correct"></span></li>
+          <li>Incorrect answers: <span id="final-incorrect"></span></li>
+          <li>Bonus points: <span id="final-bonus"></span></li>
+          <div class="buttons">
+            <button id="btn-close" type="button">Close</button>
+            <button id="btn-new" type="button">New Game</button>
+          </div>
+        </ul>
+      </aside> <!-- End game-over -->
+    </div> <!-- End game-over-overlay -->
 
   <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
   <script type="text/javascript" src="assets/js/data.js"></script>

@@ -5,11 +5,22 @@ const ScorrectId = $('#correct');
 const $incorrectId = $('#incorrect');
 const $scoreId = $('#score');
 const $timeId = $('#time');
+
 const $catContainer = $('.category-container');
 const $quesId = $('#question');
 const $choicesId = $('#choices');
 const $factId = $('#fact');
-const $overlayId = $('#overlay');
+
+const $instructions = $('.instructions-overlay');
+
+const $gameOver = $('.game-over-overlay');
+const $outcomeId = $('#outcome');
+const $finalScoreId = $('#final-score');
+const $finalCorrectId = $('#final-correct');
+const $finalIncorrectId = $('#final-incorrect');
+const $finalBonusId = $('#final-bonus');
+
+const $btnClose = $('#btn-close');
 // Needed to declare as var for window[status] to work in categoryDisplay function
 var answered = '#77ab00';
 var active = '#437f97';
@@ -38,7 +49,8 @@ let game = {
   timer: 30,
   timerStart: 30, // Start value of timer
   timerRunning: false,
-  message: ["", "Sorry, that's incorrect. The correct answer was: ", "Sorry, time's up! The correct answer was: "],
+  messages: ["", "Sorry, that's incorrect. The correct answer was: ", "Sorry, time's up! The correct answer was: ", "You won!", "You lost."],
+  hideInstruct: false,
   fn: {
     // Function to select the next question in the game and add to question container
     selectQues: function () {
@@ -54,7 +66,7 @@ let game = {
       // Store all information pertaining to the current question
       game.choices =  questions[cat][qIndex].choices;
       game.a =  questions[cat][qIndex].a;
-      game.message[0] =  questions[cat][qIndex].fact;
+      game.messages[0] =  questions[cat][qIndex].fact;
       // Display current question
       $quesId.text(game.q);
     },
@@ -98,7 +110,7 @@ let game = {
     },
     // Function to add a click event on guess to check for the correct answer
     checkGuess: function () {
-      $choicesId.on('click', function (e) {
+      $choicesId.on('click', 'li', function (e) {
         let clicked = $(e.target);
         // Call update function and pass correct or incorrect guess criteria
         game.guess = clicked.data('choice');
@@ -131,9 +143,9 @@ let game = {
       game.fn.categoryDisplay(display);
       // Display fact if answer was correct or message that guess was incorrect or left unanswered
       if (message === 0) {
-        $factId.text(game.message[message]);
+        $factId.text(game.messages[message]);
       } else {
-        $factId.text(game.message[message] + game.choices[game.a]);
+        $factId.text(game.messages[message] + game.choices[game.a]);
       }
     },
     // Functions to remove click event, stop timer and hide unselected choices
@@ -157,6 +169,18 @@ let game = {
       }
       $scoreId.text(game.score);
     },
+    gameOver: function(outcome) {
+      // Calculate bonus points
+      let bonus = game.score - (game.correct * game.correctPts);
+      // Update game over overlay with outcome and stats
+      $outcomeId.text(outcome);
+      $finalScoreId.text(game.score);
+      $finalCorrectId.text(game.correct);
+      $finalIncorrectId.text(game.incorrect);
+      $finalBonusId.text(bonus);
+      // Show game over overlay
+      $gameOver.css('display', 'block');
+    },
     timer: {
       // Function to start timer and call required functions to set up game container
       start: function () {
@@ -176,9 +200,15 @@ let game = {
         // Use clearInterval to stop the counter and set the timer to not running.
         clearInterval(timerId);
         game.timerRunning = false;
-        // Call start timer to load new question after a set delay. Check if game is over first
-        if (game.correct === game.correctMax || game.incorrect === game.incorrectMax) {
+        // Check if game is over and clear timeout. Else call start timer to load new question after a set delay.
+        if (game.correct === game.correctMax) {
           clearTimeout(delayId);
+          // Call gameOver function with you won message
+          game.fn.gameOver(game.messages[3]);
+        } else if (game.incorrect === game.incorrectMax) {
+          clearTimeout(delayId);
+          // Call gameOver function with you lost message
+          game.fn.gameOver(game.messages[4]);
         } else {
           delayId = setTimeout(game.fn.timer.start, 5000);
         }
@@ -215,10 +245,30 @@ let randomNum = function (num) {
   return Math.floor(Math.random() * num);
 };
 
+// Click event to close game over overlay
+$btnClose.on('click', function () {
+  $gameOver.css('display', 'none');
+});
+
+// When document is ready, display instructions overlay when the site first loads
 $(document).ready( function () {
-  $overlayId.css('display', 'block');
-  $overlayId.on('click', function () {
-    $overlayId.css('display', 'none');
-    setTimeout(game.fn.timer.start, 1000);
+  $instructions.css('display', 'block');
+  $instructions.on('click', function () {
+    $instructions.css('display', 'none');
+//    setTimeout(game.fn.timer.start, 1000);
+    game.fn.timer.start();
   });
 });
+
+// Function to start game
+let startGame = function () {
+  // Show instructions only if this is the first game of the session 
+  if (!game.hideInstruct) {
+    $instructions.css('display', 'block');
+    $instructions.on('click', function () {
+      $instructions.css('display', 'none');
+      game.hideInstruct = true;
+      game.fn.timer.start();
+    });
+  }
+};
