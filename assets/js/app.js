@@ -30,7 +30,8 @@ let timerId;
 let delayId;
 
 let game = {
-  categories: ["geography", "entertain", "history", "science", "leisure", "sports"],
+  categories: [],
+  categoriesAll: ["geography", "entertain", "history", "science", "leisure", "sports"],
   qPerCategory: 12, // Number of questions in each category
   activeCat: "", // Hold name of active category
   q: "",
@@ -58,6 +59,8 @@ let game = {
         $instructions.on('click', function () {
           $instructions.css('display', 'none');
           game.hideInstruct = true;
+          // Load category set by cloning contents of array
+          game.categories = game.categoriesAll.slice(0);
           game.fn.timer.start();
         });
       } else {
@@ -202,6 +205,7 @@ let game = {
           // Use setInterval to start the counter and set the timer to running
           timerId = setInterval(game.fn.timer.counter, 1000);
           game.timerRunning = true;
+          // Call functions to randomly select question, add answer choices and bind click event to check if guess is correct or not
           game.fn.selectQues();
           game.fn.addChoices();
           game.fn.checkGuess();
@@ -264,7 +268,8 @@ $btnClose.on('click', function () {
 
 // Click event to reset game
 $btnNew.on('click', function () {
-  game.categories = ["geography", "entertain", "history", "science", "leisure", "sports"];
+  // Reset category array back to all categories by cloning contents of array
+  game.categories = game.categoriesAll.slice(0);
   let $categories = $('.category');
   // Change categories back to there original state
   $.each($categories, function (i, category) {
