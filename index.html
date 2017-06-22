@@ -20,12 +20,12 @@
     <main>
       <div class="stats-container container">
         <div class="stats">
-          <div class="correct">
-            <p>Correct: <span id="correct">0</span></p>
-            <p>Incorrect: <span id="incorrect">0</span></p>
+          <div class="correct-container">
+            <p>Correct: <span class="correct">0</span></p>
+            <p>Incorrect: <span class="incorrect">0</span></p>
           </div> <!-- End correct -->
-          <div class="score">
-            <p>Score: <span id="score">0</span></p>
+          <div class="score-container">
+            <p>Score: <span class="score">0</span></p>
             <p>Time: <span id="time">30</span>s</p>
           </div> <!-- End score -->
         </div> <!-- End stats -->
@@ -97,10 +97,10 @@
         </header> <!-- End header-container -->
         <ul>
           <li id="outcome"></li>
-          <li>Final score: <span id="final-score"></span></li>
-          <li>Correct answers: <span id="final-correct"></span></li>
-          <li>Incorrect answers: <span id="final-incorrect"></span></li>
-          <li>Bonus points: <span id="final-bonus"></span></li>
+          <li>Final score: <span class="score"></span></li>
+          <li>Correct answers: <span class="correct"></span></li>
+          <li>Incorrect answers: <span class="incorrect"></span></li>
+          <li>Bonus points: <span id="bonus"></span></li>
           <div class="buttons">
             <button id="btn-close" type="button">Close</button>
             <button id="btn-new" type="button">New Game</button>

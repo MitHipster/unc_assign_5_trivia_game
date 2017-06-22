@@ -1,9 +1,9 @@
 /*jslint esversion: 6, browser: true*/
 /*global window, console, $, jQuery, questions, alert*/
 
-const ScorrectId = $('#correct');
-const $incorrectId = $('#incorrect');
-const $scoreId = $('#score');
+const ScorrectCl = $('.correct');
+const $incorrectCl = $('.incorrect');
+const $scoreCl = $('.score');
 const $timeId = $('#time');
 
 const $catContainer = $('.category-container');
@@ -15,12 +15,10 @@ const $instructions = $('.instructions-overlay');
 
 const $gameOver = $('.game-over-overlay');
 const $outcomeId = $('#outcome');
-const $finalScoreId = $('#final-score');
-const $finalCorrectId = $('#final-correct');
-const $finalIncorrectId = $('#final-incorrect');
-const $finalBonusId = $('#final-bonus');
+const $bonusId = $('#bonus');
 
 const $btnClose = $('#btn-close');
+const $btnNew = $('#btn-new');
 // Needed to declare as var for window[status] to work in categoryDisplay function
 var answered = '#77ab00';
 var active = '#437f97';
@@ -52,6 +50,20 @@ let game = {
   messages: ["", "Sorry, that's incorrect. The correct answer was: ", "Sorry, time's up! The correct answer was: ", "You won!", "You lost."],
   hideInstruct: false,
   fn: {
+    // Function to start game
+    startGame: function () {
+      // Show instructions only if this is the first game of the session 
+      if (!game.hideInstruct) {
+        $instructions.css('display', 'block');
+        $instructions.on('click', function () {
+          $instructions.css('display', 'none');
+          game.hideInstruct = true;
+          game.fn.timer.start();
+        });
+      } else {
+        game.fn.timer.start();
+      }
+    },
     // Function to select the next question in the game and add to question container
     selectQues: function () {
       // Store randomly selected category by calling randomNum function and passing the length of the categories array
@@ -130,7 +142,7 @@ let game = {
     update: function (answer, display, message, target) {
       // Update correct or incorrect counter and stat on site
       game[answer]++;
-      $(`#${answer}`).text(game[answer]);
+      $(`.${answer}`).text(game[answer]);
       // Call score function and pass it the answer argument
       game.fn.score(answer);
       // Call removeChoices function
@@ -167,17 +179,17 @@ let game = {
       } else {
         game.score += game.incorrectPts;
       }
-      $scoreId.text(game.score);
+      $scoreCl.text(game.score);
     },
     gameOver: function(outcome) {
       // Calculate bonus points
-      let bonus = game.score - (game.correct * game.correctPts);
+      let bonus = game.score - (game.correct * game.correctPts) - (game.incorrect * game.incorrectPts);
       // Update game over overlay with outcome and stats
       $outcomeId.text(outcome);
-      $finalScoreId.text(game.score);
-      $finalCorrectId.text(game.correct);
-      $finalIncorrectId.text(game.incorrect);
-      $finalBonusId.text(bonus);
+      $scoreCl.text(game.score);
+      ScorrectCl.text(game.correct);
+      $incorrectCl.text(game.incorrect);
+      $bonusId.text(bonus);
       // Show game over overlay
       $gameOver.css('display', 'block');
     },
@@ -250,25 +262,32 @@ $btnClose.on('click', function () {
   $gameOver.css('display', 'none');
 });
 
-// When document is ready, display instructions overlay when the site first loads
-$(document).ready( function () {
-  $instructions.css('display', 'block');
-  $instructions.on('click', function () {
-    $instructions.css('display', 'none');
-//    setTimeout(game.fn.timer.start, 1000);
-    game.fn.timer.start();
+// Click event to reset game
+$btnNew.on('click', function () {
+  game.categories = ["geography", "entertain", "history", "science", "leisure", "sports"];
+  let $categories = $('.category');
+  // Change categories back to there original state
+  $.each($categories, function (i, category) {
+    $(category)
+      .css('background-color', unanswered)
+      .find('.answered')
+      .css('opacity', 0);
+    $(category)
+      .find('.not-answered')
+      .attr('src', 'assets/img/not.svg')
+      .css('display', 'block');
   });
+  // Reset game stats
+  game.correct = 0;
+  ScorrectCl.text(game.correct);
+  game.incorrect = 0;
+  $incorrectCl.text(game.incorrect);
+  game.score = 0;
+  $scoreCl.text(game.score);
+  // Hide game over overlay
+  $gameOver.css('display', 'none');
+  game.fn.startGame();
 });
 
-// Function to start game
-let startGame = function () {
-  // Show instructions only if this is the first game of the session 
-  if (!game.hideInstruct) {
-    $instructions.css('display', 'block');
-    $instructions.on('click', function () {
-      $instructions.css('display', 'none');
-      game.hideInstruct = true;
-      game.fn.timer.start();
-    });
-  }
-};
+// Start game function call
+game.fn.startGame();
